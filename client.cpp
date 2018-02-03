@@ -4,7 +4,20 @@ Client::Client(QObject *parent) : QObject(parent)
 
 }
 
+void EndTheMessage(char * message)
+{
+    for(int i=0;;i++)
+    {
+        if (message[i]=='\0')
+        {
+            message[i]='\r';
+            message[i+1]='\n';
+            message[i+2]='\0';
+            break;
+        }
 
+    }
+}
 bool Client::ConnectToServer(QString host, int port)
 {
     socket=new QTcpSocket();                        //initialize socket as tcp socket
@@ -23,16 +36,11 @@ void Client::ConnectToServer(QTcpSocket* _socket)
 
 void Client::SendData()                              //send data on server
 {
-    std::string data;                                 //buff for send data
-
-
-
+    char data[1024]="wefwe";                                 //buff for send data
        while(IfConnectedToServ())                   //till connection establish, send data from istream
        {
-        std::cout<<"lol"<<std::endl;
-        std::getline(std::cin, data);                          //input data for send on socket
-
-
+        std::cin.getline (data,1024);
+        EndTheMessage(data);
         socket->write(data);                        //write data to socket
         socket->flush();                            //write all data from buffer
         socket->waitForBytesWritten(3000);          //wait till at least one byte has been written on the socket
