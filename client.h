@@ -3,11 +3,7 @@
 
 #include <QObject>
 #include <QTcpSocket>
-#include <QString>
 #include <iostream>
-#include <QDebug>
-#include <stdio.h>
-#include <string>
 class Client : public QObject
 {
     Q_OBJECT

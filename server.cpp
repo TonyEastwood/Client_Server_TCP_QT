@@ -10,12 +10,12 @@ QTcpSocket* Server::CreateServer(int _port)
 {
     server = new QTcpServer(this);                                  //initialize Server socket
 
-
-    while(!server->listen(QHostAddress::Any,_port) )            //if listen succes (have a root access)
+    std::cout<<"Wait for connection (if you wait so long, try to run with root access)"<<std::endl;
+    while(!server->listen(QHostAddress::Any,_port) )            //wait for at least connection
     {
     }
         std::cout<<"Server start success"<<std::endl;           //message, listen success
-        if(server->waitForNewConnection(3000000))
+        if(server->waitForNewConnection(30000))
         {
             socket = server->nextPendingConnection();       //cause by signal newConecction in server
             std::cout<<"New connection established"<<std::endl;

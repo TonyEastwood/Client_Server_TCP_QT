@@ -1,4 +1,5 @@
 #include "client.h"
+
 Client::Client(QObject *parent) : QObject(parent)
 {
 
@@ -36,12 +37,20 @@ void Client::ConnectToServer(QTcpSocket* _socket)
 
 void Client::SendData()                              //send data on server
 {
-    char data[1024]="wefwe";                                 //buff for send data
+    char data[120]="wefwe";                                 //buff for send data
+    char Name[50];                                          //NickName user
+    char result[170];                                       //result message that will be send
+    std::cout<<"Input your name:"<<std::endl;
+    std::cin>>Name;                                         //input NickName
+
        while(IfConnectedToServ())                   //till connection establish, send data from istream
        {
-        std::cin.getline (data,1024);
-        EndTheMessage(data);
-        socket->write(data);                        //write data to socket
+        strncpy ( result, Name, sizeof(Name) );             //union result with NickName
+        std::cin.getline (data,1024);                      //get data from input data to send it as message
+        strcat(result,":");
+        strcat(result,data);                                //union NickName with Data
+        EndTheMessage(result);                              //end message by \r\n
+        socket->write(result);                        //write data to socket
         socket->flush();                            //write all data from buffer
         socket->waitForBytesWritten(3000);          //wait till at least one byte has been written on the socket
         }
