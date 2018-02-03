@@ -5,7 +5,9 @@
 #include <QTcpSocket>
 #include <QString>
 #include <iostream>
-
+#include <QDebug>
+#include <stdio.h>
+#include <string>
 class Client : public QObject
 {
     Q_OBJECT
@@ -14,7 +16,7 @@ private:
 public:
     explicit Client(QObject *parent = nullptr);         //non convertible constructor
     bool ConnectToServer(QString host, int port);       //establish connection with server socket = host:port
-    bool ConnectToServer(QTcpSocket* _socket);           //overload func ConnectToServer
+    void ConnectToServer(QTcpSocket* _socket);           //overload func ConnectToServer
     void SendData();                                    //data, that we send on server
     bool IfConnectedToServ();                           //check if connection establish now
     void DisconnectFromServer();                        //close connection

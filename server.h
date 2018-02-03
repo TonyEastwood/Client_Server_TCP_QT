@@ -13,7 +13,7 @@ class Server : public QObject
 public:
     explicit Server(QObject *parent = nullptr);
   ~Server();
-    QTcpSocket* CreateServer(QString _ip, int _port);                                //open socket for _ip and _port for listen return socket on TcpConnection
+    QTcpSocket* CreateServer(int _port);                                //open socket for _ip and _port for listen return socket on TcpConnection
 signals:
 
 public slots:
